@@ -1,6 +1,6 @@
 //
-//  IPSWDownloadsTest.swift
-//  IPSWDownloads
+//  OperatingSystemVersion+Hashable.swift
+//  OperatingSystemVersion
 //
 //  Created by Leo Dion.
 //  Copyright © 2024 BrightDigit.
@@ -27,22 +27,37 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 
-import IPSWDownloads
-import OpenAPIURLSession
-import XCTest
+import Foundation
 
-final class IPSWDownloadsTest: XCTestCase {
-  var client: IPSWDownloads!
-
-  override func setUp() {
-    assert(client == nil)
-    client = IPSWDownloads(transport: URLSessionTransport())
+extension OperatingSystemVersion:
+  Hashable,
+  Equatable,
+  Comparable {
+  public static func == (
+    lhs: OperatingSystemVersion,
+    rhs: OperatingSystemVersion
+  ) -> Bool {
+    lhs.majorVersion == rhs.majorVersion &&
+      lhs.minorVersion == rhs.minorVersion &&
+      lhs.patchVersion == rhs.patchVersion
   }
 
-  func testDeviceWithIdentifier() async throws {
-    let device = try await client.device(withIdentifier: "VirtualMac2,1", type: .ipsw)
-    XCTAssertEqual(device.identifier, "VirtualMac2,1")
-    XCTAssertGreaterThan(device.firmwares.count, 10)
-    XCTAssertNotNil(device.firmwares.first)
+  public static func < (
+    lhs: OperatingSystemVersion,
+    rhs: OperatingSystemVersion
+  ) -> Bool {
+    guard lhs.majorVersion == rhs.majorVersion else {
+      return lhs.majorVersion < rhs.majorVersion
+    }
+    guard lhs.minorVersion == rhs.minorVersion else {
+      return lhs.minorVersion < rhs.minorVersion
+    }
+    return lhs.patchVersion < rhs.patchVersion
+  }
+
+  public func hash(into hasher: inout Hasher) {
+    majorVersion.hash(into: &hasher)
+    minorVersion.hash(into: &hasher)
+    patchVersion.hash(into: &hasher)
   }
 }
