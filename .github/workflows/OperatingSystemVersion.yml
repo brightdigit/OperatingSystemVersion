@@ -1,4 +1,4 @@
-name: IPSWDownloads
+name: OperatingSystemVersion
 on:
   push:
     branches-ignore:
@@ -8,7 +8,7 @@ jobs:
   build-ubuntu:
     name: Build on Ubuntu
     env:
-      PACKAGE_NAME: IPSWDownloads
+      PACKAGE_NAME: OperatingSystemVersion
       SWIFT_VER: ${{ matrix.swift-version }}
     runs-on: ${{ matrix.runs-on }}
     if: "!contains(github.event.head_commit.message, 'ci skip')"
@@ -65,7 +65,7 @@ jobs:
   build-macos:
     name: Build on macOS
     env:
-      PACKAGE_NAME: IPSWDownloads
+      PACKAGE_NAME: OperatingSystemVersion
     runs-on: ${{ matrix.runs-on }}
     if: "!contains(github.event.head_commit.message, 'ci skip')"
     strategy:
@@ -140,7 +140,7 @@ jobs:
         run: ./scripts/lint.sh
         if: ${{ github.event_name == 'pull_request' && ( github.base_ref == 'main' || endsWith( github.ref_name , 'Prep') ) && matrix.xcode == '/Applications/Xcode_15.2.app' }}
       - name: Run iOS target tests
-        run: xcodebuild test -scheme IPSWDownloads -sdk iphonesimulator -destination 'platform=iOS Simulator,name=${{ matrix.iPhoneName }},OS=${{ matrix.iOSVersion }}' -enableCodeCoverage YES build test
+        run: xcodebuild test -scheme OperatingSystemVersion -sdk iphonesimulator -destination 'platform=iOS Simulator,name=${{ matrix.iPhoneName }},OS=${{ matrix.iOSVersion }}' -enableCodeCoverage YES build test
       - uses: sersoft-gmbh/swift-coverage-action@v4
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -148,7 +148,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           flags: iOS,iOS${{ matrix.iOSVersion }},macOS,${{ env.XCODE_NAME }}  
       - name: Run watchOS target tests
-        run: xcodebuild test -scheme IPSWDownloads -sdk watchsimulator -destination 'platform=watchOS Simulator,name=${{ matrix.watchName }},OS=${{ matrix.watchOSVersion }}' -enableCodeCoverage YES build test
+        run: xcodebuild test -scheme OperatingSystemVersion -sdk watchsimulator -destination 'platform=watchOS Simulator,name=${{ matrix.watchName }},OS=${{ matrix.watchOSVersion }}' -enableCodeCoverage YES build test
       - uses: sersoft-gmbh/swift-coverage-action@v4
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3

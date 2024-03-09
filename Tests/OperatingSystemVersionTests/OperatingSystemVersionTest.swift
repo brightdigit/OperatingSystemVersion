@@ -1,6 +1,6 @@
 //
 //  OperatingSystemVersionTest.swift
-//  IPSWDownloads
+//  OperatingSystemVersion
 //
 //  Created by Leo Dion.
 //  Copyright © 2024 BrightDigit.
@@ -27,7 +27,7 @@
 //  OTHER DEALINGS IN THE SOFTWARE.
 //
 
-@testable import IPSWDownloads
+@testable import OperatingSystemVersion
 import XCTest
 
 extension OperatingSystemVersion {
@@ -174,7 +174,7 @@ public class OperatingSystemVersionTests: XCTestCase {
       var actual: String?
       do {
         _ = try OperatingSystemVersion(string: string)
-      } catch let RuntimeError.invalidVersion(value) {
+      } catch let OperatingSystemVersion.Error.invalidFormatString(value) {
         actual = value
       }
       XCTAssertEqual(string, actual)

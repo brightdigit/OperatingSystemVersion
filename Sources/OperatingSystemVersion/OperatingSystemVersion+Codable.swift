@@ -1,6 +1,6 @@
 //
 //  OperatingSystemVersion+Codable.swift
-//  IPSWDownloads
+//  OperatingSystemVersion
 //
 //  Created by Leo Dion.
 //  Copyright © 2024 BrightDigit.
@@ -57,7 +57,7 @@ extension OperatingSystemVersion:
     let components = Self.componentsFrom(string)
 
     guard components.count == 2 || components.count == 3 else {
-      throw RuntimeError.invalidVersion(string)
+      throw Error.invalidFormatString(string)
     }
 
     self.init(

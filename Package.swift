@@ -3,23 +3,13 @@
 import PackageDescription
 
 let package = Package(
-  name: "IPSWDownloads",
-  platforms: [.macOS(.v10_15), .iOS(.v13), .tvOS(.v13), .watchOS(.v6), .visionOS(.v1)],
+  name: "OperatingSystemVersion",
   products: [
-    .library(name: "IPSWDownloads", targets: ["IPSWDownloads"])
-  ],
-  dependencies: [
-    .package(url: "https://github.com/apple/swift-openapi-generator", from: "1.0.0"),
-    .package(url: "https://github.com/apple/swift-openapi-runtime", from: "1.0.0"),
-    .package(url: "https://github.com/apple/swift-openapi-urlsession", from: "1.0.0")
+    .library(name: "OperatingSystemVersion", targets: ["OperatingSystemVersion"])
   ],
   targets: [
     .target(
-      name: "IPSWDownloads",
-      dependencies: [
-        .product(name: "OpenAPIRuntime", package: "swift-openapi-runtime"),
-        .product(name: "OpenAPIURLSession", package: "swift-openapi-urlsession")
-      ],
+      name: "OperatingSystemVersion",
       swiftSettings: [
         .enableUpcomingFeature("BareSlashRegexLiterals"),
         .enableUpcomingFeature("ConciseMagicFile"),
@@ -32,8 +22,8 @@ let package = Package(
       ]
     ),
     .testTarget(
-      name: "IPSWDownloadsTests",
-      dependencies: ["IPSWDownloads"]
+      name: "OperatingSystemVersionTests",
+      dependencies: ["OperatingSystemVersion"]
     )
   ]
 )
